@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SoccerWebAPI.Contexts;
+using SoccerWebAPI.Services.Repositories;
+using SoccerWebAPI.Services.UnitsOfWork;
 
 namespace SoccerWebAPI
 {
@@ -15,6 +17,14 @@ namespace SoccerWebAPI
             var connectionString = builder.Configuration["ConnectionStrings:TeamsDBConnectionString"];
             builder.Services.AddDbContext<TeamsContext>(o => o.UseSqlServer(connectionString));
             builder.Services.AddControllers();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ICoachRepository, CoachRepository>();
+            builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+
+            builder.Services.AddScoped<IUserUnitOfWork, UserUnitOfWork>();
+            builder.Services.AddScoped<ITeamUnitOfWork, TeamUnitOfWork>();
+
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
         public static void Configure(WebApplication app)
         {

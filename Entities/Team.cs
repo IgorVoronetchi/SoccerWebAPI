@@ -15,6 +15,9 @@ namespace SoccerWebAPI.Entities
         [MaxLength(2500)]
         public string Description { get; set; }
 
+        [MaxLength(100)]
+        public string BestPlayer { get; set; }
+
         [Required]
         public Guid CoachId { get; set; }
 
