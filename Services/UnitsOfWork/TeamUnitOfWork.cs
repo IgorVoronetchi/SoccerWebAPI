@@ -10,8 +10,8 @@ namespace SoccerWebAPI.Services.UnitsOfWork
             ICoachRepository coaches)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            teams = teams ?? throw new ArgumentNullException(nameof(teams));
-            coaches = coaches ?? throw new ArgumentNullException(nameof(coaches));
+            Teams = teams ?? throw new ArgumentNullException(nameof(teams));
+            Coaches = coaches ?? throw new ArgumentNullException(nameof(coaches));
         }
         public ITeamRepository Teams { get; }
         public ICoachRepository Coaches { get; }

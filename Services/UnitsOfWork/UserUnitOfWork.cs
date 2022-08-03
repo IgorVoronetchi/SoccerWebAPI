@@ -9,7 +9,7 @@ namespace SoccerWebAPI.Services.UnitsOfWork
         public UserUnitOfWork(TeamsContext context, IUserRepository users)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            users = users ?? throw new ArgumentNullException(nameof(users));
+            Users = users ?? throw new ArgumentNullException(nameof(users));
         }
         public IUserRepository Users { get; }
         public int Complete()

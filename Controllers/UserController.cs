@@ -3,6 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SoccerWebAPI.Entities;
 using SoccerWebAPI.ExternalModels;
+using Microsoft.IdentityModel.Tokens;
+using System.Net.Http;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using SoccerWebAPI.Services.UnitsOfWork;
 
 namespace SoccerWebAPI.Controllers
@@ -19,7 +25,7 @@ namespace SoccerWebAPI.Controllers
             _userUnit = userUnit ?? throw new ArgumentNullException(nameof(userUnit));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        [HttpGet]
+        [HttpGet, Authorize]
         [Route("{id}", Name = "GetUser")]
 
         public IActionResult GetUser(Guid id)
@@ -31,7 +37,7 @@ namespace SoccerWebAPI.Controllers
             }
             return Ok(_mapper.Map<UserDTO>(userEntity));
         }
-        [HttpGet]
+        [HttpGet, Authorize]
         [Route("", Name = "GetAllUsers")]
         public IActionResult GetAllUsers()
         {
@@ -44,7 +50,7 @@ namespace SoccerWebAPI.Controllers
         }
 
         [Route("register", Name = "Register a new account")]
-        [HttpPost]
+        [HttpPost, Authorize]
         public IActionResult Register([FromBody] UserDTO user)
         {
             var userEntity = _mapper.Map<User>(user);
@@ -65,9 +71,22 @@ namespace SoccerWebAPI.Controllers
             var foundUser = _userUnit.Users.FindDefault(u => u.Email.Equals(user.Email) && u.Password.Equals(user.Password) && (u.Deleted == false || u.Deleted == null));
             if (foundUser != null)
             {
-                return Ok();
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecretKey2022"));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                var tokeOptions = new JwtSecurityToken(
+                    issuer: "https://localhost:7018",
+                    audience: "https://localhost:7018",
+                    claims: new List<Claim>(),
+                    expires: DateTime.Now.AddHours(8),
+                    signingCredentials: signinCredentials
+                    );
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                return Ok(new { Token = tokenString });
             }
-            return Unauthorized();
+            else
+            {
+                return Unauthorized();
+            }
         }
     }
 }

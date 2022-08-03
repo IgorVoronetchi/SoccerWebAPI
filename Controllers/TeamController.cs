@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SoccerWebAPI.Entities;
 using SoccerWebAPI.ExternalModels;
+using Microsoft.AspNetCore.Authorization;
 using SoccerWebAPI.Services.UnitsOfWork;
 
 namespace SoccerWebAPI.Controllers
@@ -65,5 +66,6 @@ namespace SoccerWebAPI.Controllers
                 new { id = teamEntity.Id }, _mapper.Map<UserDTO>(teamEntity));
         }
         #endregion Teams
+
     }
 }
