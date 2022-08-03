@@ -13,6 +13,7 @@ namespace SoccerWebAPI.Entities
         [Required]
         [MaxLength(150)]
         public string LastName { get; set; }
+        public int Wage { get; set; }
         public bool? Deleted { get; set; }
     }
 
