@@ -17,9 +17,9 @@ namespace SoccerWebAPI.Services.Repositories
         {
             return _context.Coaches
                 .Where(c => c.Id == coachId && (c.Deleted == false || c.Deleted == null))
-                .Include(c => c.FirstName)
-                .Include(c => c.LastName)
-                .Include(c => c.Wage)
+                //.Include(c => c.FirstName)
+                //.Include(c => c.LastName)
+                //.Include(c => c.Wage)
                 .FirstOrDefault();
         }
 
