@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SoccerWebAPI.Entities;
 using SoccerWebAPI.ExternalModels;
 using Microsoft.IdentityModel.Tokens;
-using System.Net.Http;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
