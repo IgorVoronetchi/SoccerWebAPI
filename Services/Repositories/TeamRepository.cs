@@ -16,7 +16,6 @@ namespace SoccerWebAPI.Services.Repositories
             return _context.Teams
                 .Where(t => t.Id == teamId && (t.Deleted == false || t.Deleted == null))
                 .Include(t => t.Coach)
-                .Include(t => t.BestPlayer)
                 .FirstOrDefault();
         }
     }
