@@ -69,7 +69,7 @@ namespace SoccerWebAPI.Controllers
             var foundUser = _userUnit.Users.FindDefault(u => u.Email.Equals(user.Email) && u.Password.Equals(user.Password) && (u.Deleted == false || u.Deleted == null));
             if (foundUser != null)
             {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecretKey2022"));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecretKey2022aaaaaaaaaaaaaa"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var tokeOptions = new JwtSecurityToken(
                     issuer: "https://localhost:7018",

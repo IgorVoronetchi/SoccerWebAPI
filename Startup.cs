@@ -44,7 +44,7 @@ namespace SoccerWebAPI
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = "https://localhost:7018",
                         ValidAudience = "https://localhost:7018",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecretKey2022"))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecretKey2022aaaaaaaaaaaaaa"))
                     };
                 });
         }
