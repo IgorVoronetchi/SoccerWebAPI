@@ -23,7 +23,7 @@ namespace SoccerWebAPI.Controllers
             _userUnit = userUnit ?? throw new ArgumentNullException(nameof(userUnit));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        [HttpGet]
+        [HttpGet, Authorize]
         [Route("{id}", Name = "GetUser")]
 
         public IActionResult GetUser(Guid id)
@@ -48,7 +48,7 @@ namespace SoccerWebAPI.Controllers
         }
 
         [Route("register", Name = "Register a new account")]
-        [HttpPost]
+        [HttpPost, Authorize]
         public IActionResult Register([FromBody] UserDTO user)
         {
             var userEntity = _mapper.Map<User>(user);
